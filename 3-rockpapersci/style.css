@@ -1,0 +1,25 @@
+.container{
+	margin: 50px auto;
+	height: 500px;
+	width: 75%;
+	background-color: rgb(32,145,65,.725);
+	text-align: center;
+	border: 1px solid black;
+}
+
+h2{
+	font-size: 2rem;
+}
+
+.gane-contain{
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px solid black;
+	min-height: 200px;
+	justify-content: space-around;
+	padding: 20px;
+}
+
+img:hover{
+	box-shadow: 0px 10px 50px  rgb(37,50,231,44);
+}
