@@ -1,0 +1,223 @@
+html{
+	height:100%;
+}
+body{
+	background-color: #FC5E55; 
+	background-image: url(image-lion-background.png);
+	background-position: top center;
+	background-repeat: no-repeat; 
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.125rem;
+	/*background-image: linear-gradient(to top bottom, red, green);   color fill gradient       */      
+}
+.container {
+	width: 800px;
+	min-height: 400px;
+	
+	margin-right: auto;
+	margin-left:auto;
+}
+header {
+	
+	height: 120px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 20px;
+	padding-top:20px;
+	border-bottom: 1px solid lightgrey;
+}
+h1{
+	color:white;
+	font-size: 3rem;
+	text-shadow: 5px 5px 10px rgb(0,0,0,0.234);
+
+}
+h2{
+	color: white;
+	font-size: 2rem;
+	margin: 20px;
+}
+p{
+	font-size: 1rem;
+	color:white;
+	line-height: 1.7rem;
+}
+
+main {
+
+	min-height: 300px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+	
+}
+.mainc{
+	min-height: 300px;
+	padding-top: 20px;
+
+
+}
+.card{
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+
+}
+.card p{
+	font-size: 0.8rem;
+	color: white
+	line-height:0.95rem; /*space between lines*/
+	
+
+
+}
+
+.card1{
+	background-image: url(image-background-card1.jpg);
+	background-position: bottom;/* crops the upper part of pic*/
+	background-size: cover;
+	min-height: 250px;
+	width: 30%;
+
+}
+
+.wrap{
+	margin-top: 20px;
+}
+.card2{
+	
+	background-image: url(image-background-card2.jpg);
+	background-size: cover;
+	background-position: left;
+	min-height: 250px;
+	width: 30%;
+}
+.card3{
+	
+    background-image: url(image-background-card3.jpg);
+	background-position: left;
+	background-size: cover;
+	min-height: 250px;
+	width: 30%;
+}
+
+
+.card1, .card2, .card3{
+	padding: 20px 10px 5px 10px;
+	box-sizing: border-box; /*add padding without spaning*/
+	
+}
+
+
+.box1{
+	
+	flex: 2;
+	
+}
+.box2{
+	flex: 1;
+	
+}
+
+a{
+text-decoration: none;
+color:white;
+
+}
+
+i{
+	color: white;
+	font-size: 70px;
+	
+}
+
+.btn{
+	background-color: white;
+	color: #FA4083;
+	padding: 10px 20px;
+	display: inline-block;
+	margin-top: 10px;
+	border-radius: 20px 50px;
+	box-shadow: 5px 5px 10px rgb(0,0,0,0.234);
+
+}
+.nbtn{
+	background-color: rgb(255,255,255,0.0);
+	color: white;
+	border:1px solid;
+	padding: 10px 20px;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+
+	margin-left: 20px;
+}
+.dropbox{
+	display: none;
+	position: absolute;
+	z-index: 20;/* appear above the content must be high than 1 */
+	/*margin-left: -30px;*/
+	padding-top: 20px;
+	text-align: center;
+
+}
+.nbtn:hover .dropbox{
+	display: block;
+
+} 
+
+
+.dropbox .nbtn{
+	background-color: #A434;
+	width: 80px;
+	margin-left: -30px;
+
+
+} 
+
+.dropbox .nbtn:hover{
+	background-color: #E32434;
+	transition-duration: 100ms;
+
+
+}
+
+.tboxxxx{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 20px;
+	margin-bottom: 50px;
+
+}
+.tbox{
+	width: 35%;
+	padding: 30px;
+	border:1px solid white;
+	box-sizing: border-box;
+	margin-top: 20px;
+
+}
+.label{
+	display: block;
+	color:white;
+	margin-bottom:5px;
+	font-size: 1.5rem;
+	font-family: 'Roboto', sans-serif;  
+}
+input[type=text], input[type=email]{
+	padding: 10px 100px;
+	width: 75%;
+}
+.submitbtn{
+	margin:20px 0px;
+	padding: 5px 20px;
+	text-transform: uppercase;
+
+}
+
+.submitbtn:hover{
+	background-color:green;
+	color:white;
+}
