@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		 .container {
+  	margin: 50px 300px;
+  	text-align: center;
+  	min-height: 400px;
+  	min-width: 200px;
+  	/*background-color: skyblue;*/
+    text-align: center;
+  }
+
+h1{
+  padding-top: 30px; 
+}
+  .flexcontainer{
+  	margin-top: 40px; 
+  	min-height: 300px;
+  	min-width: 250px;
+  	display: flex;
+  	/*background-color: red;*/
+
+
+  	}
+ .box1{
+ 	flex: 1;
+  font-size: 300px;
+ 	border: 1px solid black;
+ 	/*background-color: red;*/
+ }
+
+ .box2{
+ 	flex: 1;
+font-size: 300px;
+ 	border: 1px solid black;
+ 	/*background-color: green;*/
+
+ }
+
+ button{
+  margin-top:20px;
+  height: 50px;
+  width: 100px; 
+ }
+
+ .dicebox{
+ 	width: 135px;
+ 	height: 140px;
+ 	border: 1px solid black;
+ 	padding: 2px;
+ 	margin: 100px auto;
+ 	border-radius: 5px;
+ 	display: flex;
+ 	flex-wrap: wrap;
+ text-align: center;
+ }
+
+ .bl{
+ 	background-color: black;
+ }
+
+ .dot{
+ 	width: 25px;
+ 	height: 25px;
+ 	/*padding: 2px;*/
+ 	margin: 9px; 
+ 	/*display:inline-block;         doesnt work*/
+ 	border-radius: 50%;
+ }
+
+
+	</style>
+	
+</head>
+<body>
+<div class="container">
+	<h1> WELCOME TO DICE GAME</h1>
+
+<div class="flexcontainer">
+	<div class="box1">
+		
+	</div>
+<div class="box2">
+	
+</div>
+
+</div>
+
+<button> ROLL</button>
+
+</div>
+<script>
+
+const player1= document.querySelector('.box1');
+const player2= document.querySelector('.box2');
+let h1=document.querySelector('h1');
+const btn=document.querySelector("button");
+const dice=[[5],[1,9],[1,5,9],[1,3,7,9],[1,3,5,7,9],[1,3,4,6,7,9]];
+btn.addEventListener('click',gameLogic);
+
+
+
+function gameLogic(){
+
+let user1=1+Math.floor(Math.random()*6);
+let user2=1+Math.floor(Math.random()*6);
+
+if(player1.children[0] && player2.children[0]){
+	player1.children[0].remove();
+	player2.children[0].remove();
+}
+
+
+let dieBox=dice[user1-1];
+let dieBox2=dice[user2-1];
+
+builDice(player1,dieBox);
+builDice(player2,dieBox2);
+msgUpdate(user1,user2);
+}
+
+function builDice(player,die){
+	let div=document.createElement('div');
+	for (let i=1;i<10;i++){
+ let span=document.createElement('div');
+ span.setAttribute('class','dot');
+  
+ if(die.includes(i)){
+ 	span.classList.add('bl');
+ }
+ div.appendChild(span);
+
+}
+div.setAttribute('class','dicebox');
+
+player.appendChild(div);
+
+}
+
+function msgUpdate(die1,die2){
+if(die1===die2){
+h1.textContent="DRAW!!"
+}
+else if(die1 > die2){
+h1.textContent="Player 1 wins"
+}
+else{
+	h1.textContent="Player 2 wins"
+}
+
+}
+
+</script>
+</body>
+</html>
