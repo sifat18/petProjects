@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Color pattern</title>
+	<style>
+		.contain{
+			margin: 60px 500px;
+		}
+		.boxes{
+			display: flex;
+			flex-wrap: wrap;
+			width: 500px;
+			height: 500px;
+			border:1px solid red;
+		}
+		.box{
+			width: 49.64%;
+			border:1px solid blue;
+		}
+		p{
+			font-size: 2rem;
+		}
+	</style>
+</head>
+<body>
+	
+<div class="contain">
+	<p>To play press Start</p>
+<div class="boxes">
+	
+	<div class="box red"></div>
+	<div class="box blue"></div>
+
+	<div class="box yellow"></div>
+	<div class="box green"></div>
+</div>
+<button>Start</button>
+
+</div>
+
+
+
+<script >
+	
+	color=['red','blue','yellow','green']
+	
+	const msg=document.querySelector('p');
+	
+	const boxes=document.querySelector('.boxes');
+	
+	const btn=document.querySelector('button');
+	
+	window.addEventListener('load',setup);
+
+	
+	let gameClicks=[];
+	
+	let userClicks=[];
+	
+	let play=false;
+	
+	let playCount=1;
+
+	btn.addEventListener('click',function(){
+	
+		if(!play){
+			
+			user();
+		}
+	})
+
+// function that clears the global values and generates the sequence
+function user(){
+	
+	btn.disabled=true;
+	
+	btn.style.display='none';
+	
+	msg.textContent=`Match Pattern`
+	
+	gameClicks=[];
+	
+	userClicks=[];
+	
+	sequence(playCount);
+}
+
+// function generates the sequence and stores in gameclicks array
+
+function sequence(num){
+	let cards=document.querySelectorAll('.box');
+	num--;
+	if(num<0){
+	play=true;
+	return
+}
+
+let rand=Math.floor(Math.random()*color.length);
+
+gameClicks.push(color[rand]);
+
+cards[rand].style.opacity='1';
+
+setTimeout(function(){
+
+cards[rand].style.opacity='0.5';
+
+setTimeout(sequence(num),200);   //recursive calling until playcount reaches 0
+},500)
+
+
+}
+
+// setting the color of the boxes and initiating click function on boxes
+
+	function setup(){
+		for (let i=0;i<color.length;i++){
+		let card=boxes.querySelector("."+color[i]);
+		card.style.backgroundColor=color[i];
+		card.style.opacity="0.5";
+		card.myColor=color[i];
+
+		card.addEventListener('click',ans);
+	}}
+
+
+//function that stores user clicks and initiates endgame
+	function ans(e){
+		if(play){
+		let er=e.target;
+		userClicks.push(er.myColor);
+		er.style.opacity='1';
+		setTimeout(function(){
+			er.style.opacity='0.5';
+		}, 500);
+}
+         if(userClicks.length==gameClicks.length){
+         	play=false;
+         	endgame();
+         }
+
+	}
+
+
+function endgame(){
+	console.log('over');
+	btn.style.display='block';
+	btn.disabled=false;
+
+	if(userClicks.toString()==gameClicks.toString()){
+		playCount++;
+		msg.textContent='correct';
+	}else{
+		msg.textContent='wrong';
+	}
+}
+
+</script>
+</body>
+</html>
