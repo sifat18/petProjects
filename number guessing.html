@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Combination</title>
+<style>
+	.gamearea{
+		margin: 200px auto;
+		width: 500px;
+		min-height: 500px;
+	}
+	.numb{
+		font-size: 3rem;
+		text-align: center;
+	}
+	.msg{
+		margin-bottom: 10px;
+		font-size: 1.4rem;
+	}
+	button{
+		width: 120px;
+		height: 35px;
+		font-size:1rem; 
+		margin-top: 20px;
+	}
+	p{
+		font-size: 1.4rem;	
+	}
+</style>
+</head>
+<body>
+	<div class="gamearea">
+	<div class="msg"></div>
+	<div class="contain">
+		
+		
+
+	</div>
+
+	<button>Start</button>
+
+	<p>Clues: Guess the correct sequence. The blue color indicates the digit is smaller than the expected digit and red indicates it is higer than the expected digit.</p>
+</div>
+<script>
+	let score=0;
+	let msgg='';
+	let msg=document.querySelector('.msg');
+	const btn=document.querySelector('button');
+	const div=document.querySelector('.contain');
+	let play=false;
+	btn.addEventListener('click', function(){
+		if(!play){
+			play=true;
+			div.textContent='';
+			craft();
+			msg.textContent=`Guess combo`;
+			btn.textContent='Check combo';
+		}else {
+			score++;
+			let winCount=0;
+			msgg=`You guessed ${score} times`
+			const num=document.querySelectorAll('.numb');
+			
+			
+			//iterating over all the blocks to check values
+
+			for(let i=0;i<num.length;i++){
+				console.log(num[i].value);
+				console.log(num[i].correct);
+
+				//changing color based on correct or wrong value 
+
+				if(num[i].value==num[i].correct){
+					num[i].style.backgroundColor="green";
+					num[i].style.color='white';
+					msgg+=`correct for box ${i}`;
+					winCount++;
+					console.log(`winCount ${winCount}`);
+				}
+				else {
+					let color=(num[i].value < num[i].correct)?"blue":"red";
+					num[i].style.backgroundColor=color;
+					msgg +=` wrong for box ${i}`;
+				}
+				msg.textContent=msgg;
+				if(winCount == num.length){
+					gameover(num);
+				}
+				
+				}
+
+				
+		}
+})
+
+	function gameover(){
+		play= false;
+		msg.textContent=`Yaayy You solved in ${score} tries`
+		btn.textContent='play again';
+
+	}
+
+	function craft(){
+		for(let i=0;i<4;i++){
+		let boxes=document.createElement('input');
+		boxes.setAttribute('type','number');
+		// boxes.setAttribute('style','max:9;min:0,width:50px;size:1;value:0;');
+		boxes.size=1;
+		boxes.max=9;
+		boxes.min=0;
+		boxes.value=0;
+		boxes.classList.add('numb');
+		boxes.style.width='100px';
+		boxes.order=i;
+		boxes.correct=Math.floor(Math.random()*10);    
+		// console.log(boxes);
+		div.appendChild(boxes);
+	}}
+
+
+</script>
+</body>
+</html>
