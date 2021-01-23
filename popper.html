@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Popper</title>
+
+<style>
+	.btn{
+		cursor: pointer;
+		padding: 15px;
+		border: 1px solid black;
+		text-align: center;
+		background-color: blue;
+		color: white;
+
+	}
+	.page{
+		display: none;
+		margin: auto;
+		margin-top: 40px;  
+	}
+	.visible{
+		display: block;
+	}
+
+	.pop{
+		border: 1px solid #aab;
+		width:100px;
+		height: 100px;
+		display:inline-block;
+		text-align:center;
+		font-size: 2rem;
+		vertical-align: middle;
+		color: #ddd;
+		font-family: fantasy;
+	}
+	.row{
+		display: block;
+	}
+	.game{
+		border: 1px solid blue;
+	}
+	.active{
+		border:1px solid red;
+		background-color: aliceblue;
+		box-shadow: 5px 5px #555;
+		cursor: pointer;
+		color: black;
+	}
+	.stats{
+		height: 50px;
+		background-color: black;
+		color: white;
+		font-size: 1.3rem;
+		text-align: center;
+	}
+
+</style>
+</head>
+
+
+<body>
+<div class="contain">
+	<!-- displaying msg -->
+	<div class="stats"></div> 
+	<div class="main page">
+		<div class="starter">
+			<a  class="btn newgame">New game</a>
+		</div>
+	</div>
+
+	<!-- main table -->
+	<div class="game page">
+		
+	</div>
+
+
+
+
+</div>
+
+<script>
+	const playArea={}; //gameObject
+	const player={};  //player object
+	// let gameObj;
+
+	playArea.stats=document.querySelector('.stats');
+	playArea.main=document.querySelector('.main');
+	playArea.game=document.querySelector('.game');
+	playArea.btns=Array.from(document.querySelectorAll('.btn'));
+	playArea.pages=Array.from(document.querySelectorAll('.page'));
+	console.log(playArea);
+
+	// document.addEventListener('DOMContentLoaded',getData);
+	document.addEventListener('DOMContentLoaded',buildBoard);
+
+
+	for(let i=0;i<playArea.btns.length;i++){
+		item=playArea.btns[i];
+		item.addEventListener('click',handleBtn);
+	}
+
+	// function getData(){
+	// 	playArea.main.classList.add('visible');
+	// 	fetch('https://api.myjson.com/bins/gungm').then(function(rep){
+	// 		return rep.json();
+	// 	}).then(function(data){
+	// 		console.log(data);
+	// 		gameObj=data.data
+	// 		console.log(gameObj);
+	       // buildBoard()
+
+	// 	})
+	// 	console.log('dom loaded');
+
+	// }
+
+	function buildBoard(){
+
+		playArea.main.classList.add('visible');  //the button becomes visible
+
+		playArea.msg=document.createElement('span');
+		playArea.msg.innerHTML='Press button to start';
+		playArea.stats.appendChild(playArea.msg); //adding msg to the  stat box
+		console.log('ready');
+		
+		let rows=4;
+		let cols=4;
+		let cnt=0;
+
+		playArea.game.style.width=`${cols * 100 +(cols*2)}px` ; //setting the width of game page class
+		playArea.game.style.margin='auto';
+		for (let i=0;i<cols;i++){  
+
+			let div=document.createElement('div'); //for each column creating a row
+				div.setAttribute('class','row');
+				div.style.width=`${cols * 100 +(cols*2)}px`; //setting row width
+			
+			for (let j=0;j<rows;j++){
+			let div2=document.createElement('div'); //creating small boxes inside the row
+				div2.setAttribute('class','pop');
+				cnt++;
+				div2.innerHTML=cnt;
+				div2.cnt=cnt;
+				div.appendChild(div2);
+				}
+  				playArea.game.appendChild(div);
+
+		}
+		
+	}
+
+function handleBtn(e){
+	if(e.target.classList.contains('newgame')){
+		startGame();
+	}
+}
+
+
+function startGame(){
+	playArea.main.classList.remove('visible');
+	playArea.game.classList.add('visible');
+	player.score=0;
+	player.item=3;
+	player.gameover=false;
+	popping();
+
+}
+//generates pop ups 
+function genrate(){
+	let pops=document.querySelectorAll('.pop'); 
+	let pop=pops[Math.floor(Math.random()*pops.length)];
+	if (pop.cnt==playArea.last){ //same box cant pop in the same order
+		return genrate();
+	}
+	playArea.last=pop.cnt;
+	return pop;
+}
+function popping(){
+	let poping=genrate();
+	poping.classList.add('active');
+	poping.addEventListener('click',hit);
+	poping.old=poping.innerHTML;
+	poping.v=poping.cnt;
+	// console.log(poping.v);
+	poping.innerHTML='Hit';
+	
+	playArea.play=setTimeout(function(){
+
+		poping.classList.remove('active');
+		poping.removeEventListener('click',hit);
+		poping.innerHTML=poping.old;
+
+
+			if(poping.innerHTML!=='Hit'){
+			player.item--;
+			update();
+		}
+
+		
+		if(player.item===0){
+			gameoverr();
+		}
+		if(!player.gameover){
+			popping();
+		} 
+
+	},900)
+}
+
+function gameoverr(){
+	player.gameover=true;
+	playArea.main.classList.add('visible');
+	playArea.game.classList.remove('visible');
+	document.querySelector('.newgame').innerHTML=`Try again`;
+}
+function hit(e){
+	let pts=e.target;
+	player.score=player.score+pts.cnt;
+	update();
+	pts.classList.remove('active');
+		pts.removeEventListener('click',hit);
+		pts.innerHTML=pts.old;
+		clearTimeout(playArea.play);
+		if(!player.gameover){
+			popping();
+		} 
+}
+
+function update(){
+	playArea.msg.innerHTML=`Score: ${player.score} Lives:${player.item}`;
+}
+</script>
+</body>
+</html>
