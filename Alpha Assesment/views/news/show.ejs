@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= p.title %> ></title>
+</head>
+<body> -->
+    <h1 class="text-white mb-5"><b> <%= p.title %></b></h1>
+    <article>
+        <img  src="<%=p.image %> "  class="img-fluid rounded mx-auto d-block mt-5 mb-5" alt=" " height="60%" width="60%">
+        <section class="mt-3 mb-3 text-white"><%=p.description%></section>
+    </article>
+    <div class="card-body">
+    <form class="d-inline"action="/news/<%=p._id%>?_method=DELETE" method="POST">
+    <button class="btn btn-danger ">Delete</button>
+    </form>
+    <a class="btn btn-warning " href="/news/<%= p._id %>/edit">Edit</a>
+</div>
+<!-- </body>
+</html> -->

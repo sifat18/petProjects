@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Article</title>
+</head>
+<body> -->
+    <div class="row">
+        <h1 class="text-center text-white"> Edit Article</h1>
+           <div class="col-6 offset-3">
+
+    <form action="/news/<%=f._id %>?_method=PUT" method="POST">
+    <section class="mb-3">
+    <label class="form-label text-white" for="article">Title</label>
+    <input class="form-control type="text" name="title" id="article" value="<%= f.title %>">
+</section><section class="mb-3">
+    <label class="form-label text-white" for="image">Image URL</label>
+    <input class="form-control type="text" name="image" id="image" value="<%=f.image%>">
+</section>
+<section class="mb-3">
+    <label class="form-label text-white" for="description">Description</label>
+    <textarea class="form-control cols="60" rows="5" name="description" id="description"><%=f.description%> </textarea>
+</section>
+<section class="mb-3">
+    <label class="form-label" for="featured">Featured</label>
+    <select class="form-control" id="featured" name="featured">
+        <option value=true <%= f.featured=== true ? 'selected': '' %>>YES</option>
+        <option value=false <%= f.featured===false ? 'selected': '' %>>No</option> 
+    </select>
+</section>
+<section class="mb-3">
+    <button class="btn btn-info">Submit</button>
+</section>
+    </form>
+<!-- </body>
+</html> -->
